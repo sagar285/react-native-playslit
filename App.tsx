@@ -1,45 +1,36 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { Image, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
+const App = () => {
+  const imgurl  ="http://images.unsplash.com/photo-1760243790660-a7958d7843ee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D"
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
+    <View style={styles.View}>
+      {/* <Text style={[styles.text,{color:"red",fontSize:20}]}>App</Text> */}
+      <Image
+      source={require("./img.png")} // local image
+      style={{width:300,height:300,objectFit:"contain"}} 
+      />
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
+      <Image // img from url
+      source={{uri:imgurl}} // local image
+      style={{width:300,height:300,objectFit:"contain"}} 
       />
     </View>
-  );
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+export default App
 
-export default App;
+const styles = StyleSheet.create({
+View:{
+  display:"flex",
+  flex:1,
+  justifyContent:"center",
+  alignItems:"center", 
+  flexDirection:"row",
+  backgroundColor:"black"
+},
+text:{
+  textAlign:"center"
+}
+})
