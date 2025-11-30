@@ -21,7 +21,10 @@ DerivedData
 *.ipa
 *.xcuserstate
 **/.xcode.env.local
-
+/Learning/*
+/Learning
+/Testing
+/Testing/*
 # Android/IntelliJ
 #
 build/
