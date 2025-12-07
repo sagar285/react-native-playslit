@@ -1,17 +1,18 @@
-import { StyleSheet, Text, View,FlatList,StatusBar,TouchableOpacity,RefreshControl,ActivityIndicator,Image } from 'react-native'
-import React, { useRef, useState } from 'react'
+import { StyleSheet, Text, View,FlatList,StatusBar,TouchableOpacity,Image,ActivityIndicator } from 'react-native'
+import React, { useState,useRef } from 'react'
 const POST_HEIGHT = 250;
 const REEL_HEIGHT = 400;
+
 
 const App = () => {
 
   const [selectedId, setSelectedId] = useState();
-  const [refreshing ,setrrefreshing] =useState(false)
+  const [refereshing, setrefdreshing] = useState(false);
 
   const DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'Firs',
+      title: 'First Item',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -47,60 +48,25 @@ const App = () => {
     },
     {
       id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '10 Item',
+      title: '9 Item',
     },
     {
       id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '11 Item',
+      title: '9 Item',
     },
     {
       id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '12 Item',
+      title: '9 Item',
     },
     {
       id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '13 Item',
+      title: '9 Item',
     },
     {
       id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '14 Item',
-    },
-    {
-      id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '15 Item',
-    },
-    {
-      id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '16 Item',
-    },
-    {
-      id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '17 Item',
-    },
-    {
-      id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '18 Item',
-    },
-    {
-      id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '19 Item',
-    },
-    {
-      id: '58694a0f-3da-471f-bd96-145571e29d72',
-      title: '20 Item',
+      title: '9 Item',
     },
   ];
-
-  const viewablitiyConfig = useRef({
-    viewAreaCoveragePercentThreshold:100
-  })
-
-
-  const onViewableItemsChanged = ({viewableItems}) =>{
-     console.log(viewableItems);
-     const ids =viewableItems.filter((i)=>i.isViewable).map((i)=>i.item.id)
-     setVisibleIds(ids)
-  }
 
 
   const FEED = [
@@ -110,7 +76,19 @@ const App = () => {
     { id: "4", type: "reel", title: "Reel 2", video: "video-url" },
     { id: "5", type: "post", title: "Post 3", image: "https://picsum.photos/402" },
   ];
-  const [visibleIds, setVisibleIds] = useState([]);
+
+
+  const viewConfigRef = useRef({
+    viewAreaCoveragePercentThreshold: 100,
+  });
+
+  const onViewableItemsChanged = useRef(({ viewableItems }) => {
+    console.log(viewableItems)
+    const ids = viewableItems
+      .filter((i) => i.isViewable)
+      .map((i) => i.item.id);
+    setVisibleIds(ids); // update visible ids
+  });
 
 
   const renderItem = ({ item }) => {
@@ -157,6 +135,13 @@ const App = () => {
   };
 
 
+  const [visibleIds, setVisibleIds] = useState([]);
+
+
+
+
+
+
 
 
 
@@ -178,62 +163,70 @@ const App = () => {
     </TouchableOpacity>
   
   )}
-  const Itmeseparatorcomponent = () =>{
-    return <View style={{width:"100%",height:"2%",backgroundColor: selectedId ? "red" : "black"}}/>
-  }
 
-  const ListEmptycOMPONENT = () =>{
-    return <View><Text>when my flat list data is empty</Text></View>
-  }
-  const ListFooterComponent = () =>{
-    return <View><Text>when ListFooterComponent</Text></View>
-  }
-
-  const ListHeaderComponent = () =>{
-    return <View><Text style={{color:"white"}}>when ListHeaderComponent</Text></View>
-  }
   
+  const itemseparatorcomponent = () =>{
+     return <View style={{width:"100%",height:"2%",backgroundColor: selectedId ? "red" : "black"}}/>
+  }
+  const ListEmptycomponent = () =>{
+     return ( <View style={{width:"100%",height:"2%"}}>
+      <Text>List empty component render</Text>
+     </View>
+     )
+  }
+  const ListFootercompnent = () =>{
+     return ( <View>
+      <Text style={{textAlign:"center"}}>List ListFootercompnent component render</Text>
+     </View>
+     )
+  }
+  const ListHeadercomponent = () =>{
+     return ( <View>
+      <Text style={{textAlign:"center"}}>List ListHeadercomponent component render</Text>
+     </View>
+     )
+  }
 
   const onRefresh = () =>{
-   setrrefreshing(true)
-   setTimeout(() => {
-    setrrefreshing(false);
-  }, 1500);
-
+    setrefdreshing(true)
   }
+ 
   
 
   return (
     <View>
      <FlatList
-     ListEmptyComponent={ListEmptycOMPONENT}
-    //  ListFooterComponent={ListFooterComponent}
-    //  ListHeaderComponent={ListHeaderComponent}
-     ListHeaderComponentStyle={{
-      justifyContent:"center",
-      alignSelf:"center",
-      backgroundColor:"blue",
-     }}
-     progressViewOffset={240}
-     ListFooterComponentStyle={{
-      justifyContent:"center",
-      alignSelf:"center",
-      backgroundColor:"red",
-     }}
-    //  inverted={true}
-    //  initialNumToRender={7}
-    //  initialScrollIndex={3}
+    ListEmptyComponent={ListEmptycomponent}
+    // ListFooterComponent={ListFootercompnent}
+    // ListHeaderComponent={ListHeadercomponent}
+    // ListFooterComponentStyle={{
+    //   backgroundColor:"red",
+    //   padding:4,
+    // }}
+    // ListHeaderComponentStyle={{
+    //   backgroundColor:"blue",
+    //   padding:10,
+    // }}
+    refreshing={refereshing}
+    progressViewOffset={300}
      data={FEED}
-    //  refreshControl={<RefreshControl />}
-     refreshing={refreshing}
      renderItem={renderItem}
      keyExtractor={(i,index)=>index.toString()}
-     extraData={selectedId}
-     ItemSeparatorComponent={Itmeseparatorcomponent}
+    //  initialNumToRender={4}
+    //  initialScrollIndex={5}
+    // inverted={true}
+    //  numColumns={2}
+     contentContainerStyle = {{
+      flexGrow:1,
+      justifyContent:"center",
+      // alignItems:"center",
+     }}
      onRefresh={onRefresh}
-    onViewableItemsChanged={onViewableItemsChanged}
-    viewabilityConfig={viewablitiyConfig.current}   
-  
+     extraData={selectedId}
+     ItemSeparatorComponent={itemseparatorcomponent}
+     viewabilityConfig={viewConfigRef.current}
+     onViewableItemsChanged={onViewableItemsChanged.current}
+
      />
     </View>
   )
@@ -248,7 +241,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#f9c2ff',
-    // padding: 20,
+    padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
