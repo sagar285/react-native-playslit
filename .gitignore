@@ -25,6 +25,9 @@ DerivedData
 /Learning
 /Testing
 /Testing/*
+/Continue/
+/Continue/*
+/Continue
 # Android/IntelliJ
 #
 build/
